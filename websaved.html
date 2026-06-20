@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <title>Saved Items</title>
+ 
+ <link rel="stylesheet" href="webstyles.css" />
+
+  <script src="webauth.js"></script>
+
+</head>
+
+<body onload="checkAuth()">
+
+  <div class="blob blob1"></div>
+
+  <div class="blob blob2"></div>
+
+
+  <div class="navbar">
+
+    <img src="logo.png" alt="Logo" class="logo" />
+
+    <div>Saved Items</div>
+
+    <div class="nav-links">
+
+      <a href="#" onclick="redirectWithFade('webindex.html')">Home</a>
+
+      <a href="#" onclick="logout()">Logout</a>
+
+    </div>
+
+  </div>
+
+
+  <div class="container">
+
+    <div id="savedGrid" class="results-grid"></div>
+
+  </div>
+
+
+  <script>
+
+    const username = localStorage.getItem("username");
+
+    let savedItems = JSON.parse(localStorage.getItem(`${username}_savedItems`) || "[]");
+
+    const grid = document.getElementById("savedGrid");
+
+
+    function refreshMissingImages() {
+
+      let updated = false;
+
+      savedItems = savedItems.map(item => {
+
+        if (!item.image) {
+
+          item.image = "https://via.placeholder.com/200x150";
+
+          updated = true;
+
+        }
+        return item;
+
+      });
+
+      if (updated) {
+
+        localStorage.setItem(`${username}_savedItems`, JSON.stringify(savedItems));
+
+      }
+
+    }
+
+
+    function renderSavedItems() {
+
+      grid.innerHTML = "";
+
+      if (savedItems.length === 0) {
+
+        grid.innerHTML = "<p>No saved items yet.</p>";
+
+        return;
+
+      }
+
+
+      savedItems.forEach((item, index) => {
+
+        const card = document.createElement("div");
+
+        card.className = "product-card";
+
+        card.innerHTML = `
+
+          <p class="category">Category: ${item.category || 'Uncategorized'}</p>
+
+          <h3>${item.store}</h3>
+
+          <p class="price">${item.price}</p>
+
+          <a href="${item.link}" target="_blank" class="view-btn">View</a>
+
+          <button class="remove-btn" onclick="removeItem(this, ${index})">❤️ Remove</button>
+
+        `;
+
+        grid.appendChild(card);
+
+      });
+
+    }
+
+
+    function removeItem(button, index) {
+
+      const card = button.closest(".product-card");
+
+      card.classList.add("fade-out");
+
+      setTimeout(() => {
+
+        savedItems.splice(index, 1);
+
+        localStorage.setItem(`${username}_savedItems`, JSON.stringify(savedItems));
+
+        renderSavedItems();
+
+      }, 500);
+
+    }
+
+
+    function redirectWithFade(url) {
+
+      document.body.classList.add("fade-out-page");
+
+      setTimeout(() => {
+
+        window.location.href = url;
+
+      }, 300);
+
+    }
+
+
+    refreshMissingImages();
+
+    renderSavedItems();
+
+  </script>
+
+</body>
+
+</html>
+

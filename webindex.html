@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop Smart N' Save</title>
+  <link rel="stylesheet" href="webstyles.css" />
+  <script src="webauth.js"></script>
+</head>
+<body onload="checkAuth()">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <div class="navbar">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="logo.png" alt="Logo" class="logo" style="height: 40px;" />
+      <div class="navbar-text">
+        <div class="title">Shop Smart N' Save</div>
+        <div class="tagline">Shop Easy, Save Crazy, Repeat!</div>
+      </div>
+    </div>
+   <div class="nav-links" style="display: flex; align-items: center; gap: 12px;">
+  <a href="#" onclick="logout()">Logout</a>
+
+ <a href="websaved.html" title="Wishlist">
+  <img src="wishlist.png" alt="Wishlist" class="icon-circle" />
+</a>
+
+<a href="webprofile.html">
+  <img src="profile.png" alt="Profile" class="icon-circle" />
+</a>
+
+</div> <!-- End of .nav-links -->
+</div> <!-- End of .navbar -->
+
+<div class="greet">
+  <p><b id="greetText">Namaste! Are you ready to save?</b></p>
+</div>
+
+<div class="container">
+  <div class="search-container">
+      <input type="text" id="searchBox" class="search-box" placeholder="Enter product name" />
+      <button class="search-btn" onclick="searchProduct()">Search</button>
+</div>
+    <table id="resultsTable" style="display: none;">
+      <thead>
+        <tr>
+          <th>Store</th>
+          <th>Price</th>
+          <th>Link</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="resultsBody"></tbody>
+    </table>
+  </div>
+
+  <script src="webscript.js"></script>
+</body>
+</html>

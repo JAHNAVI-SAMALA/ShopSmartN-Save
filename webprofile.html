@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Profile</title>
+  <link rel="stylesheet" href="webstyles.css" />
+
+  <script src="webauth.js"></script>
+
+  <style>
+    .profile-container {
+      max-width: 400px;
+      margin: 10px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .profile-pic-wrapper {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      margin: 0 auto;
+    }
+    .profile-pic-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ff3f6c;
+    }
+    .profile-pic-wrapper input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 80%;
+      height: 80%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .edit-btn {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #ff3f6c;
+      margin: 10px 0;
+    }
+    .form-field {
+      text-align: left;
+      margin: 5px 0;
+    }
+    .form-field label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .form-field input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .save-btn {
+      display: none;
+      background-color: #ff3f6c;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body onload="loadProfile()">
+
+  <div class="blob blob1"></div>
+
+  <div class="blob blob2"></div>
+
+
+  <div class="profile-container">
+
+    <form id="profileForm">
+
+      <div class="profile-pic-wrapper">
+
+        <img id="profilePhotoPreview" src="profile.png" alt="Profile Photo" />
+
+        <input type="file" id="profilePhotoInput" accept="image/*" onchange="previewPhoto(event)" />
+
+      </div>
+
+
+      <div class="form-field">
+
+        <label for="name">Name</label>
+
+        <input type="text" id="name" disabled />
+
+      </div>
+
+      <div class="form-field">
+
+        <label for="gender">Gender</label>
+
+        <input type="text" id="gender" disabled />
+
+      </div>
+
+      <div class="form-field">
+
+        <label for="age">Age</label>
+
+        <input type="number" id="age" disabled />
+
+      </div>
+
+      <div class="form-field">
+
+        <label for="email">Email</label>
+
+        <input type="email" id="email" disabled />
+
+      </div>
+
+      <div class="form-field">
+
+        <label for="contact">Contact</label>
+
+        <input type="text" id="contact" disabled />
+
+      </div>
+
+
+      <button type="button" class="edit-btn" onclick="toggleEdit()">Edit</button>
+
+      <button type="button" class="save-btn" id="saveBtn" onclick="saveProfile()">Save</button>
+
+    </form>
+
+  </div>
+
+
+  <script>
+
+    function loadProfile() {
+
+      const username = localStorage.getItem("username") || "Guest";
+
+      document.getElementById("name").value = localStorage.getItem(`${username}_name`) || "";
+
+      document.getElementById("gender").value = localStorage.getItem(`${username}_gender`) || "";
+
+      document.getElementById("age").value = localStorage.getItem(`${username}_age`) || "";
+
+      document.getElementById("email").value = localStorage.getItem(`${username}_email`) || "";
+
+      document.getElementById("contact").value = localStorage.getItem(`${username}_contact`) || "";
+
+      const photo = localStorage.getItem(`${username}_profilePhoto`);
+
+      if (photo) {
+
+        document.getElementById("profilePhotoPreview").src = photo;
+
+      }
+else {
+
+        document.getElementById("profilePhotoPreview").src = 'profile.png';
+
+      }
+
+    }
+
+
+    function previewPhoto(event) {
+
+      const reader = new FileReader();
+
+      reader.onload = function () {
+
+        document.getElementById("profilePhotoPreview").src = reader.result;
+
+        const username = localStorage.getItem("username");
+
+        localStorage.setItem(`${username}_profilePhoto`, reader.result);
+
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+
+    }
+
+
+    function toggleEdit() {
+
+      const inputs = document.querySelectorAll("#profileForm input");
+
+      const saveBtn = document.getElementById("saveBtn");
+
+      inputs.forEach(input => input.disabled = false);
+
+      saveBtn.style.display = "inline-block";
+
+    }
+
+
+    function saveProfile() {
+
+      const username = localStorage.getItem("username");
+
+      localStorage.setItem(`${username}_name`, document.getElementById("name").value);
+
+      localStorage.setItem(`${username}_gender`, document.getElementById("gender").value);
+
+      localStorage.setItem(`${username}_age`, document.getElementById("age").value);
+
+      localStorage.setItem(`${username}_email`, document.getElementById("email").value);
+
+      localStorage.setItem(`${username}_contact`, document.getElementById("contact").value);
+
+      alert("Details updated successfully!");
+
+
+      const inputs = document.querySelectorAll("#profileForm input");
+
+      inputs.forEach(input => input.disabled = true);
+
+      document.getElementById("saveBtn").style.display = "none";
+
+    }
+
+  </script>
+
+</body>
+
+</html>

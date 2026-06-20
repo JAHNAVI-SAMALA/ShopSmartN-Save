@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopSmartN'Save</title>
+  <link rel="stylesheet" href="home.css" />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="vfx-background"></div>
+
+  <div class="hero">
+    <h1 class="app-title">ShopSmartN&#39;Save</h1>
+    <h2 class="welcome-text">Welcome!</h2>
+
+    <a href="weblogin.html" class="logo-link">
+      <img src="logo.png" alt="Logo" class="logo-circle" />
+    </a>
+
+    <div class="click-indicator">
+      <span class="arrow">&#8595;</span>
+      <span class="indicator-text">Click the logo to proceed</span>
+    </div>
+  </div>
+
+</body>
+<script>
+  document.querySelector('.logo-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.body.classList.add('fade-out-page');
+    setTimeout(() => {
+      window.location.href = this.href;
+    }, 300);
+  });
+</script>
+
+</html>

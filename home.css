@@ -1,0 +1,128 @@
+/* Import Poppins already in HTML */
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+.vfx-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #ff7e5f, #feb47b, #86a8e7, #91eae4);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  z-index: -1;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.welcome-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+.app-title {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin: 0;
+  opacity: 0;
+  animation: fadeIn 2s 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.logo-link {
+  display: block;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 30px 0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+  animation: pulse 2s infinite;
+}
+.logo-link:hover {
+  transform: scale(1.05);
+}
+
+.logo-circle {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.click-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  animation: fadeInUp 2s 1s ease infinite;
+}
+
+.arrow {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.indicator-text {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(10px); }
+  50% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(10px); }
+}
+
+@media (max-width: 600px) {
+  .welcome-text { font-size: 1.2rem; }
+  .app-title { font-size: 2.2rem; }
+  .logo-link { width: 100px; height: 100px; }
+  .arrow { font-size: 1.5rem; }
+  .indicator-text { font-size: 0.9rem; }
+}
+body.fade-out-page {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+body {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+

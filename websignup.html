@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <title>Signup - ShopSmart N'Save</title>
+
+  <link rel="stylesheet" href="webstyles.css" />
+
+  <script src="webauth.js">
+</script>
+
+</head>
+
+<body>
+
+  <div class="blob blob1"></div>
+
+  <div class="blob blob2"></div>
+
+
+  <div class="container">
+
+    <h2>Signup</h2>
+
+    <input type="text" id="signupUser" placeholder="Choose a username" /><br /><br />
+
+    <input type="password" id="signupPass" placeholder="Choose a password" /><br /><br />
+
+    <button onclick="signup()">Sign Up</button>
+
+    <p>Already have an account? <a href="#" onclick="redirectWithFade('weblogin.html')">Login</a></p>
+
+  </div>
+
+
+  <script>
+
+    function redirectWithFade(url) {
+
+      document.body.classList.add("fade-out-page");
+
+      setTimeout(() => {
+
+        window.location.href = url;
+
+      }, 300);
+
+    }
+  
+</script>
+
+</body>
+
+</html>
